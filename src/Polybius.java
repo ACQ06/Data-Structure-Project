@@ -35,11 +35,17 @@ public class Polybius {
         StringBuilder encrypt= new StringBuilder();
         for(int i=0; i<text.length(); i++){
             if(Character.toString(text.charAt(i)).matches("[a-zA-Z]+")){
-                for(int x=0; x<5; x++){
-                    for(int y=0; y<5; y++){
-                        if(encryptionSquare[x][y] == text.charAt(i)){
-                            encrypt.append(x+1);
-                            encrypt.append(y+1);
+                if(text.charAt(i) == 'J' || text.charAt(i) == 'j'){
+                    encrypt.append(2);
+                    encrypt.append(4);
+                }
+                else {
+                    for(int x=0; x<5; x++){
+                        for(int y=0; y<5; y++){
+                            if(encryptionSquare[x][y] == text.charAt(i)){
+                                encrypt.append(x+1);
+                                encrypt.append(y+1);
+                            }
                         }
                     }
                 }

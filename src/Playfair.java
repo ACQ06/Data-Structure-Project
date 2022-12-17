@@ -6,10 +6,10 @@ public class Playfair
     //length of digraph array
     private int length = 0;
 
-    //creates a matrix for Playfair cipher
+    //creates a matrix for Playfair cipher where we will insert the key and other characters in the alphabet
     private String[][] table;
 
-    //main() method to test Playfair method
+    //call the playfair
     public static void main(String[] args)
     {
         Playfair pf = new Playfair();
@@ -22,16 +22,18 @@ public class Playfair
         Scanner sc = new Scanner(System.in);
         int choice;
 
-        //prompts user for the keyword to use for encoding & creates tables
+        //prompts user for the keyword to use for the cipher & creates tables
         System.out.print("Enter the key for playfair cipher: ");
         String key = parseString(sc);
         while(key.equals(""))
             key = parseString(sc);
         table = this.cipherTable(key);
 
-        //shows the playfair table
+        //shows the playfair table with the keyword and other characters
         this.keyTable(table);
 
+
+        //a do loop that takes in the users input choice until the user chooses to exit the program
         do {
 
             System.out.print("""
@@ -39,22 +41,23 @@ public class Playfair
                 [2]DECIPHER
                 [3]EXIT
                 Choose from the category:ㅤ""");
+
             //accepts the user input as string and convert it to integer to prevent unnecessary bugs
             choice = Integer.parseInt(sc.nextLine());
 
             if(choice==1||choice==2) {
 
-                //prompts user for message to be encoded or decoded
+                //prompts user for the text to be encoded or decoded
                 System.out.print("Enter text: ");
 
-                //System.out.println("using the previously given keyword");
+                //creates a variable that houses the text already parsed ready for either encoding or decoding
                 String input = parseString(sc);
                 while (input.equals(""))
                     input = parseString(sc);
 
                 //switch case
-                //if the user inputs 1 then the text will be enciphered
-                //if the user inputs 2 then the text will be deciphered
+                //if the user inputs 1 then the text will be enciphered and shown the results
+                //if the user inputs 2 then the text will be deciphered and shown the results
                 switch (choice) {
                     case 1 -> {
                         String enciphered = cipher(input);
@@ -126,9 +129,10 @@ public class Playfair
     //cipher: takes input (all upper-case), encodes it, and returns the output
     private String cipher(String in)
     {
+        //calculates the array length for the digraphs
         length = in.length() / 2 + in.length() % 2;
-        //insert x between double-letter digraphs & redefines "length"
 
+        //insert x between double-letter digraphs & redefines "length"
         for(int i = 0; i < (length - 1); i++)
         {
             if(in.charAt(2 * i) == in.charAt(2 * i + 1))
@@ -164,7 +168,6 @@ public class Playfair
     }
 
     //---------------encryption logic-----------------
-
     //encodes the digraph input with the cipher's specifications
     private String[] encodeDigraph(String[] di)
     {

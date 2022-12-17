@@ -19,30 +19,55 @@ public class Playfair
     //constructor of the class
     private Playfair()
     {
-
-    //prompts user for the keyword to use for encoding & creates tables
-        System.out.print("Enter the key for playfair cipher: ");
         Scanner sc = new Scanner(System.in);
+        int choice;
+
+        //prompts user for the keyword to use for encoding & creates tables
+        System.out.print("Enter the key for playfair cipher: ");
         String key = parseString(sc);
         while(key.equals(""))
             key = parseString(sc);
         table = this.cipherTable(key);
 
-        //prompts user for message to be encoded
-        System.out.print("Enter the plaintext to be encipher: ");
-
-        //System.out.println("using the previously given keyword");
-        String input = parseString(sc);
-        while(input.equals(""))
-            input = parseString(sc);
-
-        //encodes and then decodes the encoded message
-        String output = cipher(input);
-        String decodedOutput = decode(output);
-
-        //output the results to user
+        //shows the playfair table
         this.keyTable(table);
-        this.printResults(output,decodedOutput);
+
+        do {
+
+            System.out.print("""
+                [1]ENCIPHER
+                [2]DECIPHER
+                [3]EXIT
+                Choose from the category:ㅤ""");
+            //accepts the user input as string and convert it to integer to prevent unnecessary bugs
+            choice = Integer.parseInt(sc.nextLine());
+
+            if(choice==1||choice==2) {
+
+                //prompts user for message to be encoded or decoded
+                System.out.print("Enter text: ");
+
+                //System.out.println("using the previously given keyword");
+                String input = parseString(sc);
+                while (input.equals(""))
+                    input = parseString(sc);
+
+                //switch case
+                //if the user inputs 1 then the text will be enciphered
+                //if the user inputs 2 then the text will be deciphered
+                switch (choice) {
+                    case 1 -> {
+                        String enciphered = cipher(input);
+                        System.out.println("Enciphered text: " + enciphered +"\n");
+                    }
+                    case 2 -> {
+                        String deciphered = decode(input);
+                        System.out.println("Deciphered text: " + deciphered +"\n");
+                    }
+                }
+            }
+
+        }while(choice!=3);
     }
 
 
@@ -253,19 +278,5 @@ public class Playfair
             System.out.println();
         }
         System.out.println();
-    }
-
-    //method that prints all the results
-    private void printResults(String encipher, String dec)
-    {
-        System.out.print("Encrypted Message: ");
-
-        //prints the encrypted message
-        System.out.println(encipher);
-        System.out.println();
-        System.out.print("Decrypted Message: ");
-
-        //prints the decryted message
-        System.out.println(dec);
     }
 }

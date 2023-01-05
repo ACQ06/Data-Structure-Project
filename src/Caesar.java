@@ -1,6 +1,6 @@
 import java.util.Scanner;
 public class Caesar {
-    public static void main(String[]args){
+    public static void caesar(){
         Scanner input = new Scanner(System.in);
         int choice;
 
